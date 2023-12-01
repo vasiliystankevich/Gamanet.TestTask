@@ -5,12 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gamanet.TestTask.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+        Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <ListBox x:Name="PersonList" ItemsSource="{Binding Path=Persons}">
+        <ListBox x:Name="PersonList">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <RowDefinition/>
@@ -18,9 +23,34 @@
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding Name}" Grid.Column="1"></TextBlock>
-                        <TextBlock Text="{Binding Address}" Grid.Row="1" Grid.Column="1"></TextBlock>
+                        <StackPanel Grid.Row="1">
+                            <TextBlock Text="Name: " Grid.Column="1"/>
+                            <TextBlock Text="{Binding Name}" Grid.Column="2"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2">
+                            <TextBlock Text="Name: "/>
+                            <TextBlock Text="{Binding Country}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="3">
+                            <TextBlock Text="Name: " />
+                            <TextBlock Text="{Binding Address}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="4">
+                            <TextBlock Text="Name: " />
+                            <TextBlock Text="{Binding PostalZip}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="5">
+                            <TextBlock Text="Name: " />
+                            <TextBlock Text="{Binding Email}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1">
+                            <TextBlock Text="Name: " />
+                            <TextBlock Text="{Binding Phone}" />
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
