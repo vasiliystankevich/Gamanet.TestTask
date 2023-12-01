@@ -1,32 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using Gamanet.TestTask.Wpf.Interfaces;
-using Serilog;
 
 namespace Gamanet.TestTask.Wpf.Logic;
 
 public class Person
 {
-    public Person(string? rawData)
+    public Person(string[] rawData)
     {
-        var elements = rawData!.Split(",");
-        if (elements.Length != 6) throw new Exception("Not valid raw data");
-
-        Name = elements[0];
-        Country = elements[1];
-        Address = elements[2];
-        PostalZip = elements[3];
-        Email = elements[4];
-        Phone = elements[5];
+        IsValidData = true;
+        Name = rawData[0];
+        Country = rawData[1];
+        Address = rawData[2];
+        PostalZip = rawData[3];
+        Email = rawData[4];
+        Phone = rawData[5];
     }
 
-    public string Name { get; set; }
-    public string Country { get; set; }
-    public string Address { get; set; }
-    public string PostalZip { get; set; }
-    public string Email { get; set; }
-    public string Phone { get; set; }
+    public Person()
+    {
+        IsValidData = false;
+    }
+
+    public static Person Convert(string? rawData)
+    {
+        var elements = rawData!.Split(",");
+        return elements.Length == 6 ? new Person(elements) : new Person();
+    }
+
+    public string Name { get; init; }
+    public string Country { get; init; }
+    public string Address { get; init; }
+    public string PostalZip { get; init; }
+    public string Email { get; init; }
+    public string Phone { get; init; }
+    public bool IsValidData { get; init; }
 }
 
 public class DataLoader:IDataLoader
@@ -43,7 +51,7 @@ public class DataLoader:IDataLoader
                 continue;
             }
 
-            yield return new Person(rawData);
+            yield return Person.Convert(rawData);
         }
     }
 

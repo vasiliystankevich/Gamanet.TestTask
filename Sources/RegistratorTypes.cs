@@ -23,7 +23,11 @@ public class RegistratorTypes:BaseRegistratorTypes
                 return configureLogger.GetLogger(logFilePath);
             })
             .RegisterSingletonFactory<IDataLoader>(_ => new DataLoader())
-            .RegisterFactory<IMainWindow>(_=>new MainWindow())
+            .RegisterFactory<IMainWindow>(executor=>
+            {
+                var dataLoader = executor.Resolve<IDataLoader>();
+                return new MainWindow(dataLoader);
+            })
             .RegisterSingletonFactory<IApp>(_ => new App());
     }
 }
