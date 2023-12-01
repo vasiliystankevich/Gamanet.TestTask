@@ -15,12 +15,15 @@ public class RegistratorTypes:BaseRegistratorTypes
 
     public override void RegisterAll()
     {
-        Executor.RegisterSingletonFactory<IConfigureLogger>(executor=>new ConfigureLogger())
-        .RegisterFactory(executor =>
-        {
-            var configureLogger = executor.Resolve<IConfigureLogger>();
-            var logFilePath = Path.Combine(new[] { AppContext.BaseDirectory, "Logs\\Gammanet.TestTask.Wpf.txt" });
-            return configureLogger.GetLogger(logFilePath);
-        });
+        Executor.RegisterSingletonFactory<IConfigureLogger>(_ => new ConfigureLogger())
+            .RegisterFactory(executor =>
+            {
+                var configureLogger = executor.Resolve<IConfigureLogger>();
+                var logFilePath = Path.Combine(new[] { AppContext.BaseDirectory, "Logs\\Gammanet.TestTask.Wpf.txt" });
+                return configureLogger.GetLogger(logFilePath);
+            })
+            .RegisterSingletonFactory<IDataLoader>(_ => new DataLoader())
+            .RegisterFactory<IMainWindow>(_=>new MainWindow())
+            .RegisterSingletonFactory<IApp>(_ => new App());
     }
 }

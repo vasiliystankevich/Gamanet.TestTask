@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Gamanet.TestTask.Wpf.Logic;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace Gamanet.TestTask.Wpf.Interfaces
 {
-    internal interface IDataLoader
+    public interface IDataLoader
     {
+        IEnumerable<Person> Load(StreamReader reader);
     }
 }
